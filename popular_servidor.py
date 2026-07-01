@@ -37,7 +37,48 @@ perguntas_iniciais = [
         "pergunta": "Quantas pessoas podem usar a minha conta ao mesmo tempo?",
         "resposta": "O plano padrão permite até 3 ecrãs em simultâneo. Pode atualizar o seu plano a qualquer momento para ter mais ecrãs.",
         "categoria": "Conta"
+    },
+    {
+        "pergunta": "Quais são as formas de pagamento aceitas?",
+        "resposta": "Aceitamos cartões de crédito (Visa, Mastercard, Elo, Amex), cartões de débito e pagamento via PIX.",
+        "categoria": "Financeiro"
+    },
+    {
+        "pergunta": "Esqueci a minha senha, como posso recuperá-la?",
+        "resposta": "Na tela de login, clique em 'Esqueci minha senha'. Enviaremos um e-mail com as instruções para você criar um novo acesso de forma segura.",
+        "categoria": "Conta"
+    },
+    {
+        "pergunta": "Posso baixar filmes e séries para assistir offline?",
+        "resposta": "Sim! No aplicativo para celulares e tablets, clique no ícone de download ao lado do episódio desejado. O título ficará salvo na aba 'Downloads'.",
+        "categoria": "Conteúdo"
+    },
+    {
+        "pergunta": "O aplicativo fecha sozinho durante a reprodução. O que fazer?",
+        "resposta": "Verifique se o aplicativo está atualizado na loja do seu dispositivo. Recomendamos também limpar o cache ou, se necessário, reinstalar o aplicativo.",
+        "categoria": "Suporte Técnico"
+    },
+    {
+        "pergunta": "Consigo assistir à programação ao vivo?",
+        "resposta": "Sim, você pode acompanhar a transmissão ao vivo dos canais disponíveis no seu plano acessando a seção 'Ao Vivo' no menu principal.",
+        "categoria": "Conteúdo"
+    },
+    {
+        "pergunta": "Como mudar o idioma do áudio ou ativar as legendas?",
+        "resposta": "Durante a reprodução do vídeo, clique no ícone de engrenagem ou de balão de diálogo no canto da tela para escolher as opções de áudio e legenda desejadas.",
+        "categoria": "Suporte Técnico"
+    },
+    {
+        "pergunta": "Como faço para excluir o meu perfil secundário?",
+        "resposta": "Acesse as configurações da sua conta, clique em 'Gerenciar Perfis', selecione o perfil que deseja remover e confirme clicando no botão 'Excluir perfil'.",
+        "categoria": "Conta"
+    },
+    {
+        "pergunta": "A minha fatura foi cobrada em duplicidade, como resolvo?",
+        "resposta": "Caso identifique uma cobrança duplicada, acesse o painel 'Pagamentos' e clique em 'Contestar cobrança', ou acione um dos nossos atendentes humanos no chat para realizarmos o estorno.",
+        "categoria": "Financeiro"
     }
+
 ]
 
 def enviar_dados():
