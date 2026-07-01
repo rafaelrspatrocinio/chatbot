@@ -1,0 +1,34 @@
+# Ambientes Virtuais
+venv/
+.venv/
+env/
+.env/
+
+# Ficheiros de Cache e Compilação do Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Variáveis de Ambiente (Segurança)
+.env
+.env.local
+
+# Banco de Dados Local
+*.db
+*.sqlite3
+chatbot.db
+
+# Logs
+*.log
+nohup.out
+
+# Ficheiros de Editores e IDEs (VS Code, IntelliJ, etc)
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ficheiros de Sistema Operacional
+.DS_Store
+Thumbs.db
