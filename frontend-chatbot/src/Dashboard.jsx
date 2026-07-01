@@ -7,9 +7,9 @@ export default function Dashboard() {
   const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
-    // Busca os dados da API Python que criámos anteriormente
-    axios.get('http://localhost:8000/api/v1/dashboard/resumo').then(res => setResumo(res.data));
-    axios.get('http://localhost:8000/api/v1/dashboard/categorias').then(res => setCategorias(res.data));
+    // Busca os dados da API Python hospedada no Render
+    axios.get('https://chatbot-v8a5.onrender.com/api/v1/dashboard/resumo').then(res => setResumo(res.data));
+    axios.get('https://chatbot-v8a5.onrender.com/api/v1/dashboard/categorias').then(res => setCategorias(res.data));
   }, []);
 
   return (

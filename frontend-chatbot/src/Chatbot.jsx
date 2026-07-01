@@ -26,7 +26,7 @@ export default function Chatbot() {
 
     try {
       // Chama a nossa API em Python no Docker
-      const resposta = await axios.post('http://localhost:8000/api/v1/chatbot/perguntar', {
+      const resposta = await axios.post('https://chatbot-v8a5.onrender.com/api/v1/chatbot/perguntar', {
         pergunta: textoPergunta
       });
 
