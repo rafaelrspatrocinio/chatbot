@@ -1,16 +1,22 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from pydantic import BaseModel
 from app.core.database import get_db
 from app.models import faq_model
 from app.schemas import chatbot_schema
 
 router = APIRouter()
 
+# Schema para validar os dados que vêm do seu script
+class FAQCreate(BaseModel):
+    pergunta: str
+    resposta: str
+    categoria: str
+
 @router.post("/perguntar", response_model=chatbot_schema.RespostaChatbot)
 def perguntar_chatbot(consulta: chatbot_schema.PerguntaUsuario, db: Session = Depends(get_db)):
 
     # Pesquisa simples utilizando LIKE para encontrar palavras semelhantes
-    # (No PostgreSQL em produção, usaríamos ILIKE para ignorar maiúsculas/minúsculas)
     termo_busca = f"%{consulta.pergunta}%"
 
     pergunta_faq = db.query(faq_model.PerguntaFAQ).filter(
@@ -47,3 +53,21 @@ def perguntar_chatbot(consulta: chatbot_schema.PerguntaUsuario, db: Session = De
             "resposta": "Desculpe, ainda não tenho a resposta para essa dúvida. O seu pedido foi registado e a nossa equipa vai analisá-lo em breve!",
             "encontrou_resposta": False
         }
+
+@router.post("/adicionar")
+def adicionar_faq(faq: FAQCreate, db: Session = Depends(get_db)):
+    # Verifica se já existe para não duplicar
+    existe = db.query(faq_model.PerguntaFAQ).filter(faq_model.PerguntaFAQ.pergunta == faq.pergunta).first()
+
+    if existe:
+        return {"status": "erro", "mensagem": "Pergunta já existe"}
+
+    nova_pergunta = faq_model.PerguntaFAQ(
+        pergunta=faq.pergunta,
+        resposta=faq.resposta,
+        categoria=faq.categoria
+    )
+    db.add(nova_pergunta)
+    db.commit()
+    db.refresh(nova_pergunta)
+    return {"status": "sucesso", "id": nova_pergunta.id}
