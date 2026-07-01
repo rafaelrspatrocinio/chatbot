@@ -50,7 +50,7 @@ def perguntar_chatbot(consulta: chatbot_schema.PerguntaUsuario, db: Session = De
 
         return {
             "pergunta_original": consulta.pergunta,
-            "resposta": "Desculpe, ainda não tenho a resposta para essa dúvida. O seu pedido foi registado e a nossa equipa vai analisá-lo em breve!",
+            "resposta": "Desculpe, ainda não tenho a resposta para essa dúvida. Seu pedido foi registrado e nossa equipe vai analisá-lo em breve!",
             "encontrou_resposta": False
         }
 
