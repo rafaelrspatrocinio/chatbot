@@ -20,7 +20,9 @@ app = FastAPI(
 # 2. Configuração do CORS (Permite que o React converse com a API)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://chatbot-theta-inky-41.vercel.app"],
+    allow_origins=["https://chatbot-theta-inky-41.vercel.app",
+                   "http://localhost:5173"
+                   ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -1,3 +1,7 @@
+# ---------------------------------------------------
+# Rotas Analíticas do Dashboard
+# Criado por R.P.
+# ---------------------------------------------------
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import func, desc
@@ -9,6 +13,7 @@ router = APIRouter()
 
 @router.get("/resumo", response_model=dashboard_schema.ResumoDashboard)
 def obter_resumo_geral(db: Session = Depends(get_db)):
+    """Retorna o total de consultas e a proporção de respostas bem-sucedidas."""
     total = db.query(faq_model.HistoricoChat).count()
 
     respondidas = db.query(faq_model.HistoricoChat).filter(
@@ -23,7 +28,7 @@ def obter_resumo_geral(db: Session = Depends(get_db)):
 
 @router.get("/categorias", response_model=list[dashboard_schema.DistribuicaoCategoria])
 def distribuicao_por_categoria(db: Session = Depends(get_db)):
-    # Equivalente a: SELECT categoria, COUNT(*) FROM histórico JOIN faq GROUP BY categoria
+    """Retorna o volume de atendimentos agrupado por categoria no banco de dados."""
     resultado = db.query(
         faq_model.PerguntaFAQ.categoria,
         func.count(faq_model.HistoricoChat.id).label("quantidade")
@@ -38,14 +43,15 @@ def distribuicao_por_categoria(db: Session = Depends(get_db)):
 
 @router.get("/sem-resposta", response_model=list[dashboard_schema.PerguntaSemResposta])
 def perguntas_nao_respondidas(db: Session = Depends(get_db)):
-    # Traz as últimas 10 perguntas que o bot não soube responder
+    """Lista as últimas 10 perguntas que precisaram de fallback para análise de curadoria."""
     resultados = db.query(faq_model.HistoricoChat).filter(
         faq_model.HistoricoChat.respondida == False
     ).order_by(desc(faq_model.HistoricoChat.data_hora)).limit(10).all()
 
+    # Validação de segurança adicionada: garante que data_hora não é None antes de formatar
     return [
         {
             "pergunta_usuario": r.pergunta_usuario,
-            "data_hora": r.data_hora.strftime("%d/%m/%Y %H:%M")
+            "data_hora": r.data_hora.strftime("%d/%m/%Y %H:%M") if r.data_hora else "Data Indisponível"
         } for r in resultados
     ]
