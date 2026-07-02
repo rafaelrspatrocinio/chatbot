@@ -124,11 +124,17 @@ body {
 
 .mensagem-wrapper {
   display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
-.mensagem-wrapper.usuario { justify-content: flex-end; }
-.mensagem-wrapper.bot { justify-content: flex-start; }
+.mensagem-wrapper.usuario {
+  align-items: flex-end;
+}
+
+.mensagem-wrapper.bot {
+  align-items: flex-start;
+}
 
 .bolha-mensagem {
   max-width: 75%;

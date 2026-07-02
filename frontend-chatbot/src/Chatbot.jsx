@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { Send } from 'lucide-react';
 
@@ -11,40 +11,41 @@ export default function Chatbot() {
     }
   ]);
   const [input, setInput] = useState('');
+
+  // 1. Referência para o auto-scroll
   const fimDoChatRef = useRef(null);
 
-  // Faz o scroll automático para a última mensagem
+  // 2. Efeito que faz a rolagem sempre que uma nova mensagem entra
   useEffect(() => {
     fimDoChatRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [mensagens]);
 
   const enviarPergunta = async (eventoOuTexto) => {
-    // Previne o recarregamento da página se vier do form de envio
+    // Previne o recarregamento da página (acionado ao pressionar Enter no form)
     if (eventoOuTexto && eventoOuTexto.preventDefault) {
       eventoOuTexto.preventDefault();
     }
 
-    // Identifica se a chamada veio do botão (string) ou do input de texto
+    // Identifica se a chamada veio do botão rápido (string) ou do input de texto
     const textoPergunta = typeof eventoOuTexto === 'string' ? eventoOuTexto : input;
 
     if (!textoPergunta.trim()) return;
 
-    // Adiciona a pergunta do usuário à tela
+    // Adiciona a pergunta do utilizador ao ecrã
     const novaMensagemUsuario = { remetente: 'usuario', texto: textoPergunta };
     setMensagens((prev) => [...prev, novaMensagemUsuario]);
 
-    // Só limpa o input se a mensagem foi enviada pelo campo de texto
+    // Limpa o input apenas se a mensagem foi enviada pelo campo de texto
     if (typeof eventoOuTexto !== 'string') {
       setInput('');
     }
 
     try {
-      // Chama a nossa API em Python no Docker/Render
       const resposta = await axios.post('https://chatbot-v8a5.onrender.com/api/v1/chatbot/perguntar', {
         pergunta: textoPergunta
       });
 
-      // Adiciona a resposta do bot à tela
+      // Adiciona a resposta da base de conhecimento
       setMensagens((prev) => [...prev, { remetente: 'bot', texto: resposta.data.resposta }]);
     } catch (erro) {
       setMensagens((prev) => [...prev, {
@@ -68,7 +69,7 @@ export default function Chatbot() {
               {msg.texto}
             </div>
 
-            {/* Renderiza os botões de opção se a mensagem possuir essa propriedade */}
+            {/* Renderiza os botões de opção rápida */}
             {msg.opcoes && (
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '10px' }}>
                 {msg.opcoes.map((opcao, i) => (
@@ -92,20 +93,22 @@ export default function Chatbot() {
                 ))}
               </div>
             )}
-
           </div>
         ))}
+        {/* Âncora invisível onde o scroll automático vai parar */}
         <div ref={fimDoChatRef} />
       </div>
 
+      {/* O uso do <form> permite que a tecla "Enter" acione o envio automaticamente */}
       <form className="chat-input-area" onSubmit={enviarPergunta}>
         <input
           type="text"
-          placeholder="Digite sua dúvida aqui..."
+          placeholder="Digite a sua dúvida aqui..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <button type="submit" className="btn-enviar">
+        {/* Adicionado aria-label para acessibilidade em leitores de ecrã */}
+        <button type="submit" className="btn-enviar" aria-label="Enviar mensagem">
           <Send size={18} />
         </button>
       </form>
