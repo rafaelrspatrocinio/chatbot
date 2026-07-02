@@ -3,9 +3,12 @@ import { MessageSquare, BarChart3 } from 'lucide-react'
 import Chatbot from './Chatbot'
 import './index.css'
 import Dashboard from './Dashboard'
+import Login from './Login'
 
 function App() {
   const [abaAtiva, setAbaAtiva] = useState('chatbot')
+  // Estado para controlar se o utilizador já fez login
+  const [autenticado, setAutenticado] = useState(false)
 
   return (
     <div className="app-container">
@@ -38,9 +41,14 @@ function App() {
 
       <main className="main-content">
         {abaAtiva === 'chatbot' ? (
-          <Chatbot />  // <-- 2. Renderizar o componente do Chatbot aqui
+          <Chatbot />  // <-- Renderiza o chat normalmente
         ) : (
+          // Se clicou no dashboard, verifica se está autenticado
+          autenticado ? (
             <Dashboard />
+          ) : (
+            <Login onLoginSucesso={() => setAutenticado(true)} />
+          )
         )}
       </main>
     </div>

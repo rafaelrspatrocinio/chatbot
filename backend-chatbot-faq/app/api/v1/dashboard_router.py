@@ -1,8 +1,9 @@
 # ---------------------------------------------------
-# Rotas Analíticas do Dashboard
+# Rotas Analíticas do Dashboard e Autenticação
 # Criado por R.P.
 # ---------------------------------------------------
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from sqlalchemy import func, desc
 from app.core.database import get_db
@@ -11,6 +12,28 @@ from app.schemas import dashboard_schema
 
 router = APIRouter()
 
+# ---------------------------------------------------
+# Autenticação
+# ---------------------------------------------------
+class LoginData(BaseModel):
+    usuario: str
+    senha: str
+
+@router.post("/login")
+def fazer_login(dados: LoginData):
+    """Valida as credenciais para acesso ao Painel Analítico."""
+    # Credenciais estáticas para proteção do painel
+    usuario_correto = "admin"
+    senha_correta = "globo123"
+
+    if dados.usuario == usuario_correto and dados.senha == senha_correta:
+        return {"status": "sucesso", "mensagem": "Autenticado com sucesso"}
+
+    raise HTTPException(status_code=401, detail="Utilizador ou palavra-passe incorretos.")
+
+# ---------------------------------------------------
+# Rotas Analíticas
+# ---------------------------------------------------
 @router.get("/resumo", response_model=dashboard_schema.ResumoDashboard)
 def obter_resumo_geral(db: Session = Depends(get_db)):
     """Retorna o total de consultas e a proporção de respostas bem-sucedidas."""
