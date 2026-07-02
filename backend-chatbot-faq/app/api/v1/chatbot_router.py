@@ -71,3 +71,10 @@ def adicionar_faq(faq: FAQCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(nova_pergunta)
     return {"status": "sucesso", "id": nova_pergunta.id}
+
+@router.delete("/limpar-banco")
+def limpar_banco(db: Session = Depends(get_db)):
+    # Apaga todos os registos da tabela PerguntaFAQ
+    linhas_apagadas = db.query(faq_model.PerguntaFAQ).delete()
+    db.commit()
+    return {"status": "sucesso", "mensagem": f"{linhas_apagadas} perguntas foram apagadas."}
