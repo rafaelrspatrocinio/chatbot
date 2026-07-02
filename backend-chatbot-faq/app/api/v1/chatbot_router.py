@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from app.core.database import get_db
 from app.models import faq_model
 from app.schemas import chatbot_schema
+from sqlalchemy import or_
 
 router = APIRouter()
 
@@ -20,7 +21,10 @@ def perguntar_chatbot(consulta: chatbot_schema.PerguntaUsuario, db: Session = De
     termo_busca = f"%{consulta.pergunta}%"
 
     pergunta_faq = db.query(faq_model.PerguntaFAQ).filter(
-        faq_model.PerguntaFAQ.pergunta.like(termo_busca)
+        or_(
+            faq_model.PerguntaFAQ.pergunta.like(termo_busca),
+            faq_model.PerguntaFAQ.categoria.like(termo_busca)
+        )
     ).first()
 
     if pergunta_faq:
