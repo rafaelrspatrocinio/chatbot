@@ -9,36 +9,6 @@ BASE_URL = "https://chatbot-v8a5.onrender.com/api/v1/chatbot/adicionar"
 
 perguntas_iniciais = [
     {
-        "pergunta": "Como alterar a forma de pagamento?",
-        "resposta": "Aceda a 'Minha Conta' > 'Pagamentos' e clique em 'Editar forma de pagamento' para inserir o seu novo cartão de crédito.",
-        "categoria": "Financeiro"
-    },
-    {
-        "pergunta": "Como cancelar a minha assinatura?",
-        "resposta": "Para cancelar, vá a 'Minha Assinatura', deslize até ao final da página e clique no botão vermelho 'Cancelar plano'.",
-        "categoria": "Financeiro"
-    },
-    {
-        "pergunta": "O vídeo está a travar muito, o que faço?",
-        "resposta": "Recomendamos que verifique a sua ligação à internet. Se o problema persistir, limpe o cache do seu navegador ou reinicie a sua box.",
-        "categoria": "Suporte Técnico"
-    },
-    {
-        "pergunta": "Em quais dispositivos posso assistir?",
-        "resposta": "Pode assistir no seu smartphone, tablet, computador e nas principais Smart TVs do mercado através do nosso aplicativo oficial.",
-        "categoria": "Suporte Técnico"
-    },
-    {
-        "pergunta": "Como alterar o meu e-mail de registo?",
-        "resposta": "No painel de utilizador, clique em 'Perfil' > 'Dados pessoais' e edite o campo de e-mail. Receberá um link de confirmação no novo endereço.",
-        "categoria": "Conta"
-    },
-    {
-        "pergunta": "Quantas pessoas podem usar a minha conta ao mesmo tempo?",
-        "resposta": "O plano padrão permite até 3 ecrãs em simultâneo. Pode atualizar o seu plano a qualquer momento para ter mais ecrãs.",
-        "categoria": "Conta"
-    },
-    {
         "pergunta": "Quais são as formas de pagamento aceitas?",
         "resposta": "Aceitamos cartões de crédito (Visa, Mastercard, Elo, Amex), cartões de débito e pagamento via PIX.",
         "categoria": "Financeiro"
@@ -77,13 +47,42 @@ perguntas_iniciais = [
         "pergunta": "A minha fatura foi cobrada em duplicidade, como resolvo?",
         "resposta": "Caso identifique uma cobrança duplicada, acesse o painel 'Pagamentos' e clique em 'Contestar cobrança', ou acione um dos nossos atendentes humanos no chat para realizarmos o estorno.",
         "categoria": "Financeiro"
+    },
+    {
+        "pergunta": "Como faço para assistir aos jogos do Flamengo ao vivo?",
+        "resposta": "Você pode acompanhar as partidas ao vivo garantindo que o seu plano inclui o pacote Premiere ou acessando a transmissão simultânea do SporTV e da TV aberta, dependendo da disponibilidade do campeonato.",
+        "categoria": "Conteúdo"
+    },
+    {
+        "pergunta": "Minha Smart TV não tem o aplicativo, o que fazer?",
+        "resposta": "Se a sua TV não possui o nosso aplicativo na loja oficial, você pode utilizar aparelhos como Chromecast, Apple TV, Roku Express ou Amazon Fire TV Stick conectados à entrada HDMI para transmitir o conteúdo.",
+        "categoria": "Suporte Técnico"
+    },
+    {
+        "pergunta": "Como criar um perfil infantil (Kids)?",
+        "resposta": "Acesse 'Gerenciar Perfis', clique em 'Adicionar Perfil' e ative a opção 'Perfil Infantil'. Isso aplicará um filtro automático para que apenas conteúdos adequados para crianças sejam exibidos.",
+        "categoria": "Conta"
+    },
+    {
+        "pergunta": "Como faço para mudar ou fazer upgrade no meu plano?",
+        "resposta": "Vá até 'Minha Conta', selecione 'Minha Assinatura' e clique em 'Alterar plano'. Escolha a nova opção desejada (como adicionar canais ao vivo) e confirme. A mudança pode ter efeito imediato ou no próximo ciclo de faturamento.",
+        "categoria": "Financeiro"
+    },
+    {
+        "pergunta": "Por quanto tempo os downloads ficam disponíveis offline?",
+        "resposta": "Os títulos baixados permanecem salvos por até 30 dias no seu dispositivo. Porém, após você apertar o play pela primeira vez sem internet, terá 48 horas para terminar de assistir.",
+        "categoria": "Conteúdo"
+    },
+    {
+        "pergunta": "Não estou encontrando uma novela ou série específica, por quê?",
+        "resposta": "Nosso catálogo é atualizado constantemente. Alguns conteúdos podem sair da plataforma temporariamente devido a renovações de contratos de licenciamento ou direitos autorais.",
+        "categoria": "Conteúdo"
     }
-
 ]
 
 def enviar_dados():
     adicionadas = 0
-    print("A iniciar o envio de dados para o Render...\n")
+    print("Iniciando o envio de dados para o Render...\n")
 
     for item in perguntas_iniciais:
         try:
@@ -103,7 +102,7 @@ def enviar_dados():
         except Exception as e:
             print(f"❌ Falha de conexão na pergunta '{item['pergunta']}': {e}")
 
-    print(f"\nConcluído! {adicionadas} novas perguntas foram registadas na nuvem.")
+    print(f"\nConcluído! {adicionadas} novas perguntas foram registradas na nuvem.")
 
 if __name__ == "__main__":
     enviar_dados()
