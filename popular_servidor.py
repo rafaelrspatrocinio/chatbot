@@ -7,76 +7,72 @@ import requests
 # A URL oficial da sua API no Render
 BASE_URL = "https://chatbot-v8a5.onrender.com/api/v1/chatbot/adicionar"
 
+# Catálogo sincronizado com o Documento de Especificação Funcional
 perguntas_iniciais = [
     {
+        "categoria": "Financeiro",
         "pergunta": "Quais são as formas de pagamento aceitas?",
-        "resposta": "Aceitamos cartões de crédito (Visa, Mastercard, Elo, Amex), cartões de débito e pagamento via PIX.",
-        "categoria": "Financeiro"
+        "resposta": "Aceitamos cartões de crédito (Visa, Mastercard, Elo, Amex), cartões de débito e pagamento via PIX."
     },
     {
-        "pergunta": "Esqueci a minha senha, como posso recuperá-la?",
-        "resposta": "Na tela de login, clique em 'Esqueci minha senha'. Enviaremos um e-mail com as instruções para você criar um novo acesso de forma segura.",
-        "categoria": "Conta"
-    },
-    {
-        "pergunta": "Posso baixar filmes e séries para assistir offline?",
-        "resposta": "Sim! No aplicativo para celulares e tablets, clique no ícone de download ao lado do episódio desejado. O título ficará salvo na aba 'Downloads'.",
-        "categoria": "Conteúdo"
-    },
-    {
-        "pergunta": "O aplicativo fecha sozinho durante a reprodução. O que fazer?",
-        "resposta": "Verifique se o aplicativo está atualizado na loja do seu dispositivo. Recomendamos também limpar o cache ou, se necessário, reinstalar o aplicativo.",
-        "categoria": "Suporte Técnico"
-    },
-    {
-        "pergunta": "Consigo assistir à programação ao vivo?",
-        "resposta": "Sim, você pode acompanhar a transmissão ao vivo dos canais disponíveis no seu plano acessando a seção 'Ao Vivo' no menu principal.",
-        "categoria": "Conteúdo"
-    },
-    {
-        "pergunta": "Como mudar o idioma do áudio ou ativar as legendas?",
-        "resposta": "Durante a reprodução do vídeo, clique no ícone de engrenagem ou de balão de diálogo no canto da tela para escolher as opções de áudio e legenda desejadas.",
-        "categoria": "Suporte Técnico"
-    },
-    {
-        "pergunta": "Como faço para excluir o meu perfil secundário?",
-        "resposta": "Acesse as configurações da sua conta, clique em 'Gerenciar Perfis', selecione o perfil que deseja remover e confirme clicando no botão 'Excluir perfil'.",
-        "categoria": "Conta"
-    },
-    {
-        "pergunta": "A minha fatura foi cobrada em duplicidade, como resolvo?",
-        "resposta": "Caso identifique uma cobrança duplicada, acesse o painel 'Pagamentos' e clique em 'Contestar cobrança', ou acione um dos nossos atendentes humanos no chat para realizarmos o estorno.",
-        "categoria": "Financeiro"
-    },
-    {
-        "pergunta": "Como faço para assistir aos jogos do Flamengo ao vivo?",
-        "resposta": "Você pode acompanhar as partidas ao vivo garantindo que o seu plano inclui o pacote Premiere ou acessando a transmissão simultânea do SporTV e da TV aberta, dependendo da disponibilidade do campeonato.",
-        "categoria": "Conteúdo"
-    },
-    {
-        "pergunta": "Minha Smart TV não tem o aplicativo, o que fazer?",
-        "resposta": "Se a sua TV não possui o nosso aplicativo na loja oficial, você pode utilizar aparelhos como Chromecast, Apple TV, Roku Express ou Amazon Fire TV Stick conectados à entrada HDMI para transmitir o conteúdo.",
-        "categoria": "Suporte Técnico"
-    },
-    {
-        "pergunta": "Como criar um perfil infantil (Kids)?",
-        "resposta": "Acesse 'Gerenciar Perfis', clique em 'Adicionar Perfil' e ative a opção 'Perfil Infantil'. Isso aplicará um filtro automático para que apenas conteúdos adequados para crianças sejam exibidos.",
-        "categoria": "Conta"
-    },
-    {
+        "categoria": "Financeiro",
         "pergunta": "Como faço para mudar ou fazer upgrade no meu plano?",
-        "resposta": "Vá até 'Minha Conta', selecione 'Minha Assinatura' e clique em 'Alterar plano'. Escolha a nova opção desejada (como adicionar canais ao vivo) e confirme. A mudança pode ter efeito imediato ou no próximo ciclo de faturamento.",
-        "categoria": "Financeiro"
+        "resposta": "Vá até 'Minha Conta', selecione 'Minha Assinatura' e clique em 'Alterar plano'."
     },
     {
-        "pergunta": "Por quanto tempo os downloads ficam disponíveis offline?",
-        "resposta": "Os títulos baixados permanecem salvos por até 30 dias no seu dispositivo. Porém, após você apertar o play pela primeira vez sem internet, terá 48 horas para terminar de assistir.",
-        "categoria": "Conteúdo"
+        "categoria": "Financeiro",
+        "pergunta": "A minha fatura foi cobrada em duplicidade?",
+        "resposta": "Acesse o painel 'Pagamentos' e clique em 'Contestar cobrança', ou acione um atendente."
     },
     {
-        "pergunta": "Não estou encontrando uma novela ou série específica, por quê?",
-        "resposta": "Nosso catálogo é atualizado constantemente. Alguns conteúdos podem sair da plataforma temporariamente devido a renovações de contratos de licenciamento ou direitos autorais.",
-        "categoria": "Conteúdo"
+        "categoria": "Conta",
+        "pergunta": "Esqueci a minha senha, como posso recuperá-la?",
+        "resposta": "Na tela de login, clique em 'Esqueci minha senha'. Enviaremos um e-mail com as instruções."
+    },
+    {
+        "categoria": "Conta",
+        "pergunta": "Como criar um perfil infantil (Kids)?",
+        "resposta": "Acesse 'Gerenciar Perfis', clique em 'Adicionar Perfil' e ative a opção 'Perfil Infantil'."
+    },
+    {
+        "categoria": "Conta",
+        "pergunta": "Como faço para excluir o meu perfil secundário?",
+        "resposta": "Acesse 'Gerenciar Perfis', selecione o perfil que deseja remover e clique em 'Excluir perfil'."
+    },
+    {
+        "categoria": "Conteúdo",
+        "pergunta": "Posso baixar filmes e séries para assistir offline?",
+        "resposta": "Sim! No app mobile, clique no ícone de download ao lado do episódio desejado."
+    },
+    {
+        "categoria": "Conteúdo",
+        "pergunta": "Consigo assistir à programação ao vivo?",
+        "resposta": "Sim, acesse a seção 'Ao Vivo' no menu principal para acompanhar os canais disponíveis."
+    },
+    {
+        "categoria": "Conteúdo",
+        "pergunta": "Como faço para assistir aos jogos do Flamengo?",
+        "resposta": "Verifique se o seu plano inclui o pacote Premiere ou acesse a transmissão via SporTV."
+    },
+    {
+        "categoria": "Conteúdo",
+        "pergunta": "Por quanto tempo os downloads ficam disponíveis?",
+        "resposta": "Títulos baixados permanecem salvos por até 30 dias (ou 48h após o início da reprodução)."
+    },
+    {
+        "categoria": "Suporte",
+        "pergunta": "O aplicativo fecha sozinho durante a reprodução.",
+        "resposta": "Verifique atualizações, limpe o cache do dispositivo ou reinstale o aplicativo."
+    },
+    {
+        "categoria": "Suporte",
+        "pergunta": "Como mudar o idioma ou ativar legendas?",
+        "resposta": "Durante a reprodução, clique no ícone de engrenagem ou balão de diálogo."
+    },
+    {
+        "categoria": "Suporte",
+        "pergunta": "Minha Smart TV não tem o aplicativo.",
+        "resposta": "Utilize dispositivos como Chromecast, Apple TV ou Roku Express na entrada HDMI."
     }
 ]
 
