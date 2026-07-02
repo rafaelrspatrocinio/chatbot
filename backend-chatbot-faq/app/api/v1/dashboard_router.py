@@ -55,3 +55,17 @@ def perguntas_nao_respondidas(db: Session = Depends(get_db)):
             "data_hora": r.data_hora.strftime("%d/%m/%Y %H:%M") if r.data_hora else "Data Indisponível"
         } for r in resultados
     ]
+
+@router.get("/frequentes")
+def perguntas_mais_frequentes(db: Session = Depends(get_db)):
+    """Retorna o Top 5 das perguntas mais realizadas no chat."""
+    resultados = db.query(
+        faq_model.HistoricoChat.pergunta_usuario,
+        func.count(faq_model.HistoricoChat.id).label("quantidade")
+    ).group_by(
+        faq_model.HistoricoChat.pergunta_usuario
+    ).order_by(
+        desc("quantidade")
+    ).limit(5).all()
+
+    return [{"pergunta": r.pergunta_usuario, "quantidade": r.quantidade} for r in resultados]
